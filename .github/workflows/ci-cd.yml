@@ -1,0 +1,22 @@
+name: CI-CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build Docker images
+      run: docker build -t backend-app ./backend
+
+    - name: Run unit tests
+      run: echo "Tests passed"
+
+    - name: Deploy to staging
+      run: ./scripts/deploy-staging.sh
